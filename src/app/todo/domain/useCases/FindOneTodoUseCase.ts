@@ -13,7 +13,7 @@ export class FindOneTodoUseCase extends UseCaseModel {
    * @param {FindOneTodoSchema} todo
    * @returns {TodoEntity}
    */
-  execute(todo: FindOneTodoSchema): Observable<TodoEntity> {
+  execute(todo: FindOneTodoSchema): Observable<TodoEntity|null> {
     return this.todoBackendApi.findOneTodo(todo);
   }
 }

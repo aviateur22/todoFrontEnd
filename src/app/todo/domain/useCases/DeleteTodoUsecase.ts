@@ -13,7 +13,7 @@ export class DeleteOneTodoUseCase extends UseCaseModel {
    * @param {DeleteOneTodoSchema} todo
    * @returns {TodoEntity}
    */
-  execute(todo: DeleteOneTodoSchema): Observable<TodoEntity> {
+  execute(todo: DeleteOneTodoSchema): Observable<boolean|TodoEntity> {
     return this.todoBackendApi.deleteOneTodo(todo);
   }
 }

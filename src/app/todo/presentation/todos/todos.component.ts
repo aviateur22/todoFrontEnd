@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiServiceImp } from '../../infra/services/ApiServiceImp';
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
@@ -11,11 +10,7 @@ export class TodosComponent {
   }
 
   ngOnInit() {
-    
 
-    ApiServiceImp.getBackendApi().todoApi.findAllTodo().subscribe(e=>{
-      console.log(e);
-    });
   }
 
 }
