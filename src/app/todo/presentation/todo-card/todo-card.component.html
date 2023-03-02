@@ -1,1 +1,29 @@
-<p>todo-card works!</p>
+<form [formGroup]="todoFormGroup" (submit)="dispachtAction($event)">
+  <!-- Titre de la page-->
+  <app-title-page titlePageText={{titlePageText}}></app-title-page>
+
+  <!-- Titre -->
+  <app-input
+    [todoFormGroup] ="todoFormGroup"
+    controlName="title" 
+    id="title" 
+    type="text" 
+    name="title" 
+    placeholderText="Mon super titre" 
+    labelText="tire"
+    ></app-input>
+
+  <!-- Description -->
+  <app-input 
+    [todoFormGroup]="todoFormGroup" 
+    controlName="description" 
+    id="description" 
+    type="text" 
+    name="description" 
+    placeholderText="Ma super description" 
+    labelText="description"
+  ></app-input>
+
+  <!-- Submit button-->
+  <app-rectangle-button type="submit" buttonText="Ajouter"></app-rectangle-button>
+</form>

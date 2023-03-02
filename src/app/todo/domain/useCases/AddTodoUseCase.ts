@@ -14,6 +14,7 @@ export class AddTodoUseCase extends UseCaseModel {
    * @returns {TodoEntity}
    */
   execute(todo: AddTodoSchema): Observable<TodoEntity> {
+    const addTodo = this.todoBackendApi.saveTodo(todo);
     return this.todoBackendApi.saveTodo(todo);
   }
 }
