@@ -1,4 +1,5 @@
 import { Component, Input, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AddTodoSchema } from '../../domain/ports/todoSchema/AddTodoSchema';
 import { UpdateTodoSchema } from '../../domain/ports/todoSchema/UpdateTodoSchema';
@@ -20,10 +21,29 @@ export class TodoCardComponent {
   // FormBuilder Todo
   todoFormGroup: FormGroup = new FormGroup({});
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder, 
+    private route: ActivatedRoute
+    ) { }
 
   ngOnInit() {
-    this.constructFormGroup()
+    // Checl URL
+    this.checkUrl();
+
+    // Construction formBuilder
+    this.constructFormGroup();
+  }
+
+  /**
+   * Vérification des parametre de la route
+   */
+  checkUrl() {
+      //vérification de l'URL et déduction de l'action UPDATE ou CREATE
+			this.route.params.subscribe(params => {       
+				if (params['id']) {
+          this.isTodoToUpdate = true;
+        }
+      });
   }
 
   /**
@@ -42,28 +62,51 @@ export class TodoCardComponent {
     })
   }
 
-  // dd
-  dispachtAction(event: Event) {
+  /**
+   * Vérification si ajout ou update d'une Todo
+   */
+  addEditTodo() {
     
-    if(this.isTodoToUpdate) {
-      const todo: UpdateTodoSchema = {
-        id: this.todoFormGroup.controls['id'].value,
-        title: this.todoFormGroup.controls['title'].value,
-        description: this.todoFormGroup.controls['description'].value
-      }
+    switch(this.isTodoToUpdate) {
 
-      UseCaseServiceImp.getUseCasesServiceImp().updateOneTodoUseCase.execute(todo).subscribe(todo=>{
-        console.log(todo);
-      });
-    } else {
-      const todo: AddTodoSchema = {
-        title: this.todoFormGroup.controls['title'].value,
-        description: this.todoFormGroup.controls['description'].value
-      }
-      UseCaseServiceImp.getUseCasesServiceImp().addTodoUseCase.execute(todo).subscribe(todo=>{
-        console.log(todo);
-      });
-    }
+      // Mise a jour
+      case true:       
+        const updateTodo: UpdateTodoSchema = {
+          id: this.todoFormGroup.controls['id'].value,
+          title: this.todoFormGroup.controls['title'].value,
+          description: this.todoFormGroup.controls['description'].value
+        }
+        this.updateTodo(updateTodo);      
+      break;
+
+      // Ajout d'une Todo
+      case false:
+        const addTodo: AddTodoSchema = {
+          title: this.todoFormGroup.controls['title'].value,
+          description: this.todoFormGroup.controls['description'].value
+        }
+        this.addTodo(addTodo);
+      break;
+    }    
     console.log(this.todoFormGroup);
   }
+
+  /**
+   * Ajout d'un nouvelle Todo
+   * @param {AddTodoSchema} todo 
+   */
+  addTodo(todo: AddTodoSchema) {    
+    UseCaseServiceImp.getUseCasesServiceImp().addTodoUseCase.execute(todo).subscribe();
+  }
+
+
+  /**
+   * Mise a jour d'une Todo
+   * @param {UpdateTodoSchema} todo 
+   */
+  updateTodo(todo: UpdateTodoSchema) {
+    UseCaseServiceImp.getUseCasesServiceImp().updateOneTodoUseCase.execute(todo).subscribe();
+  }
+
+  
 }

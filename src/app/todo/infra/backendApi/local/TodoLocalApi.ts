@@ -29,7 +29,7 @@ export class TodoLocalApi implements TodoApiSchema {
    * @returns {Observable<TodoEntity[]>}
    */
   findAllTodo(): Observable<TodoEntity[]> {
-    return HttpServiceImp.getHttp().get(this.uri+ '/find-all-todos')
+    return HttpServiceImp.getHttp().get(this.uri + '/find-all-todos')
   }
 
   findOneTodo(todo: FindOneTodoSchema): Observable<TodoEntity | null> {
@@ -46,8 +46,14 @@ export class TodoLocalApi implements TodoApiSchema {
   deleteOneTodo(todo: DeleteOneTodoSchema): Observable<boolean | TodoEntity> {
     throw new Error("Method not implemented.");
   }
+
+  /**
+   * Mise a jour du statut d'une todo
+   * @param todo 
+   */
   checkToggleTodo(todo: CheckToggleTodoSchema): Observable<TodoEntity> {
-    throw new Error("Method not implemented.");
+    console.log(todo.status);
+    return HttpServiceImp.getHttp().patch(this.uri + '/toggle-check/' + todo.id, todo);
   }
  
   

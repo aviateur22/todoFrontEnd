@@ -1,6 +1,6 @@
-<div (click)="showTodoContent" class="todo">
+<div (click)="showTodoContent()" class="todo">
     <!-- checkbox -->
-    <input type="checkbox" [checked]="todoComplete">
+    <input (click)="checkToggleTodo($event)" type="checkbox" [checked]="todoComplete">
 
     <!-- Titre -->
     <p> {{ todoTitle }} </p>
