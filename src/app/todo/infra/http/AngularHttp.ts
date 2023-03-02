@@ -6,7 +6,7 @@ export class AngularHttp<D, T> implements HttpSchema<D, T> {
   constructor(private http: HttpClient) {}
 
   patch(url: string, data: any): Observable<D | T> {
-    throw new Error("Method not implemented.");
+    return this.http.patch<D|T>(url, data)
   }
 
   delete(url: string, data: any): Observable<D | T> {

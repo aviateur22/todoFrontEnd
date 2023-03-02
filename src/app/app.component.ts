@@ -49,7 +49,7 @@ export class AppComponent {
   setBackendService() {   
     // Selection backend
     const apiServiceImp = new ApiServiceImp(this.backendSourceApiSelection);
-    apiServiceImp.setBackendApi(BackendApiSource.localBackEndApi);
+    apiServiceImp.setBackendApi(BackendApiSource.mockBackendApi);
   }
 
   /**
