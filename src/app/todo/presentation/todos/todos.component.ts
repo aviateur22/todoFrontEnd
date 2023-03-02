@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { TodoEntity } from '../../domain/entities/todo/TodoEntity';
 @Component({
   selector: 'app-todos',
@@ -9,8 +10,9 @@ export class TodosComponent {
 
   @Input() todos: Array<TodoEntity> = [];
 
-  constructor() {
+    constructor(private fb: FormBuilder) {}
 
-  }
+  ngOnInit(){ } 
+
 
 }

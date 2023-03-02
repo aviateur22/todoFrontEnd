@@ -1,3 +1,10 @@
-<div>
-  test
+<div (click)="showTodoContent" class="todo">
+    <!-- checkbox -->
+    <input type="checkbox" [checked]="todoComplete">
+
+    <!-- Titre -->
+    <p> {{ todoTitle }} </p>
+
+    <!-- button supp -->
+    <app-rounded-button></app-rounded-button>
 </div>

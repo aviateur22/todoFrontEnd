@@ -1,6 +1,5 @@
 import { Component, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TodoEntity } from '../../domain/entities/todo/TodoEntity';
 import { AddTodoSchema } from '../../domain/ports/todoSchema/AddTodoSchema';
 import { UpdateTodoSchema } from '../../domain/ports/todoSchema/UpdateTodoSchema';
 import { UseCaseServiceImp } from '../../domain/services/UseCaseServiceImp';
