@@ -18,7 +18,7 @@ export class AngularHttp<D, T> implements HttpSchema<D, T> {
   }
   
   post(url: string, data: any): Observable<D|T> {
-   return this.http.post<D|T>('', data)
+   return this.http.post<D|T>(url, data)
   }
 
 

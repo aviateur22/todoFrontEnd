@@ -1,0 +1,10 @@
+<div [formGroup]="todoFormGroup" >
+  <label [for]="id"> {{ labelText }}</label>
+  <input
+    [formControlName]="controlName"
+    [placeholder]="placeholderText" 
+    [type]="type" 
+    [name]="name" 
+    [id]="id"
+  >
+</div>

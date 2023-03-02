@@ -72,4 +72,22 @@ export class AppComponent {
 
 
   }
+
+    /**
+ * Ajout d'une Todo
+ */
+  addNewTodo() {
+
+    // Récupération des Todos
+    this.getAllTodos();
+  }
+
+  /**
+   * Mise a jour d'une Todo
+   */
+  updateTodo() {
+
+    // Récupération des Todos
+    this.getAllTodos();
+  }
 }

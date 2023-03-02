@@ -13,17 +13,33 @@ import { HttpServiceImp } from "../../services/HttpServiceImp";
  */
 export class TodoLocalApi implements TodoApiSchema {  
 
-  protected uri = 'http://localhost:4000/api/v1/todo';
+  private uri = 'http://localhost:4000/api/v1/todo';
 
-  saveTodo(todo: AddTodoSchema): Observable<TodoEntity> {
-    throw new Error("Method not implemented.");
+  /**
+   * Ajout d'une Todo
+   * @param {AddTodoSchema  } todo 
+   * @returns {Observable<TodoEntity>}
+   */
+  saveTodo(todo: AddTodoSchema): Observable<TodoEntity> {    
+    return HttpServiceImp.getHttp().post(this.uri, todo);
   }
+
+  /**
+   * Recherche des Todos
+   * @returns {Observable<TodoEntity[]>}
+   */
   findAllTodo(): Observable<TodoEntity[]> {
     return HttpServiceImp.getHttp().get(this.uri+ '/find-all-todos');    
   }
+
   findOneTodo(todo: FindOneTodoSchema): Observable<TodoEntity | null> {
     throw new Error("Method not implemented.");
   }
+
+  /**
+   * 
+   * @param todo 
+   */
   updateOneTodo(todo: UpdateTodoSchema): Observable<TodoEntity> {
     throw new Error("Method not implemented.");
   }
