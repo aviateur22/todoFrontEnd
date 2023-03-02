@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { TodoEntity } from './todo/domain/entities/todo/TodoEntity';
 import { UseCaseServiceImp } from './todo/domain/services/UseCaseServiceImp';
 import { TodoLocalApi } from './todo/infra/backendApi/local/TodoLocalApi';
@@ -34,7 +35,7 @@ export class AppComponent {
   title = 'todo - FrontEnd';
 
   // liste des Todos
-  todos: TodoEntity[] = [];
+  todos: Array<TodoEntity> = [];
 
   ngOnInit() {    
     this.setBackendService();
@@ -64,30 +65,16 @@ export class AppComponent {
    * Récupération des Todos
    */
   getAllTodos() {
-    UseCaseServiceImp.getUseCasesServiceImp().findAllTodoUseCase.execute().subscribe(todos=>{
-      
-      this.todos = todos as  TodoEntity[]
-      console.log(this.todos);
+    UseCaseServiceImp.getUseCasesServiceImp().findAllTodoUseCase.execute().subscribe((todos: any)=>{
+      switch(Array.isArray(todos)) {
+      // MockBackend
+      case true: this.todos = todos; break;
+
+        // LocalBackend-WebServer
+      case false: this.todos = todos.todos; break;
+      }
     });
 
 
-  }
-
-    /**
- * Ajout d'une Todo
- */
-  addNewTodo() {
-
-    // Récupération des Todos
-    this.getAllTodos();
-  }
-
-  /**
-   * Mise a jour d'une Todo
-   */
-  updateTodo() {
-
-    // Récupération des Todos
-    this.getAllTodos();
   }
 }

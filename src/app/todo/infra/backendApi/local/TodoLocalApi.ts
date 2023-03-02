@@ -1,4 +1,4 @@
-import { Observable } from "rxjs";
+import { map, Observable } from "rxjs";
 import { TodoEntity } from "src/app/todo/domain/entities/todo/TodoEntity";
 import { TodoApiSchema } from "src/app/todo/domain/ports/apiSchemas/TodoApiSchema";
 import { AddTodoSchema } from "src/app/todo/domain/ports/todoSchema/AddTodoSchema";
@@ -29,7 +29,7 @@ export class TodoLocalApi implements TodoApiSchema {
    * @returns {Observable<TodoEntity[]>}
    */
   findAllTodo(): Observable<TodoEntity[]> {
-    return HttpServiceImp.getHttp().get(this.uri+ '/find-all-todos');    
+    return HttpServiceImp.getHttp().get(this.uri+ '/find-all-todos')
   }
 
   findOneTodo(todo: FindOneTodoSchema): Observable<TodoEntity | null> {

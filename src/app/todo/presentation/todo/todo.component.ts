@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { TodoEntity } from '../../domain/entities/todo/TodoEntity';
 
 @Component({
   selector: 'app-todo',
@@ -7,7 +8,25 @@ import { Component } from '@angular/core';
 })
 export class TodoComponent {
 
+  // Données sur la Todo
+  @Input() todo!: TodoEntity;
+
+  // Titre
+  todoTitle: string = '';
+
+  // Status
+  todoComplete: boolean = false;
+
   ngOnInit() {
+   this.todoTitle = this.todo.title;
+   this.todoComplete = this.todo.status;
+  }
+
+  showTodoContent() {
+
+  }
+
+  toggleCheckTodo() {
     
   }
 }

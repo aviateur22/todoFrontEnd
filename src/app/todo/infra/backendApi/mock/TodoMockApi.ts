@@ -35,7 +35,7 @@ export class TodoMockApi implements TodoApiSchema {
    * @returns { Array<TodoEntity> }
    */
   saveTodo(todo: AddTodoSchema): Observable<TodoEntity> {
-    // Index
+    // Index   
     const index: number = this.todos.length === 0 ? 1 : Math.max(...this.todos.map(x=>Number(x.id))) + 1;
 
     const todoModel: TodoEntity = new TodoEntity (
