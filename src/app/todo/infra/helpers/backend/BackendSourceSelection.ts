@@ -1,14 +1,9 @@
-import { Injectable } from "@angular/core";
-import { TodoLocalApi } from "../../api/local/TodoLocalApi";
-import { TodoMockApi } from "../../api/mock/TodoMockApi";
-import { TodoWebApi } from "../../api/web/TodoWebApi";
+import { TodoLocalApi } from "../../backendApi/local/TodoLocalApi";
+import { TodoMockApi } from "../../backendApi/mock/TodoMockApi";
+import { TodoWebApi } from "../../backendApi/web/TodoWebApi";
 import { BackendApi } from "./BackendApi";
 import { BackendApiSource } from "./BackendSource";
 
-
-@Injectable({
-  providedIn: 'root'
-})
 export class BackendSourceApiSelection { 
 
   constructor (
@@ -21,11 +16,10 @@ export class BackendSourceApiSelection {
   }
 
   /**
-   * 
+   * Selection du backend
    * @param backendApiSource 
    */
-  setBackend(backendApiSource: number): BackendApi {  
-    console.log(backendApiSource)  
+  setBackend(backendApiSource: number): BackendApi { 
     switch (backendApiSource) {
       case BackendApiSource.webBackEndApi:
         return this.webBackendApi();
@@ -40,7 +34,6 @@ export class BackendSourceApiSelection {
         return this.mockBackendApi();
       break;      
     }
-
   }
 
   /**

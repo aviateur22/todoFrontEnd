@@ -1,4 +1,3 @@
-import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { TodoEntity } from "../../../domain/entities/todo/TodoEntity";
 import { TodoApiSchema } from "../../../domain/ports/apiSchemas/TodoApiSchema";
@@ -8,10 +7,6 @@ import { DeleteOneTodoSchema } from "../../../domain/ports/todoSchema/DeleteOneT
 import { FindOneTodoSchema } from "../../../domain/ports/todoSchema/FindOneTodoSchema";
 import { UpdateTodoSchema } from "../../../domain/ports/todoSchema/UpdateTodoSchema";
 
-
-@Injectable({
-  providedIn: 'root'
-})
 export class TodoMockApi implements TodoApiSchema {
  
   // Liste des todos
