@@ -1,4 +1,4 @@
-import { Component, Input} from '@angular/core';
+import { Component, EventEmitter, Input, Output} from '@angular/core';
 import { TodoEntity } from '../../domain/entities/todo/TodoEntity';
 import { CheckToggleTodoSchema } from '../../domain/ports/todoSchema/CheckToggleTodoSchema';
 import { UseCaseServiceImp } from '../../domain/services/UseCaseServiceImp';
@@ -13,6 +13,8 @@ export class TodoComponent {
 
   // Données sur la Todo
   @Input() todo!: TodoEntity;
+
+  @Output() deleteTodoEmitter: EventEmitter<any> = new EventEmitter<any>()
 
   // Titre de la todo
   todoTitleHtml: string = '';
@@ -51,5 +53,30 @@ export class TodoComponent {
 
     // Mise a jour de la Todo
     UseCaseServiceImp.getUseCasesServiceImp().checkToggleTodoUseCase.execute(checkToggleTodo).subscribe();
+  }
+
+  /**
+   * 
+   */
+  deleteTodo(){
+    UseCaseServiceImp.getUseCasesServiceImp().findOneTodoUseCase.execute(this.todo).subscribe((todo: any)=>{
+
+      // Exception si todo pas trouvé
+      if(!todo) {
+        throw new Error('todo not find');
+      }
+
+      let todoData: any;
+
+      switch(Object.keys(todo).length > 2) {
+      // MockBackend
+      case true: todoData = todo; break;
+
+      // LocalBackend-WebServer
+      case false: todoData = todo.todo; break;
+      }
+      
+      this.deleteTodoEmitter.emit(todoData);
+    });
   }
 }

@@ -75,7 +75,7 @@ export class TodoMockApi implements TodoApiSchema {
 
     if(!todo.title) {
       throw new Error('title is mandatory');
-     }
+    }
     
     // Modification des propriété
     this.todos[index - 1].title = todo.title;
@@ -116,6 +116,11 @@ export class TodoMockApi implements TodoApiSchema {
    * @returns {TodoModel|null}
    */
   findOneTodo(todoSchema: FindOneTodoSchema): Observable<TodoEntity|null> {
+
+    if(!todoSchema.id) {
+      throw new Error('id is mandatory');
+    }
+
     const findTodo = this.todos.find(todo => (todoSchema.id === todo.id));
     return typeof findTodo === 'undefined' ?
       of(null) :  
@@ -127,6 +132,10 @@ export class TodoMockApi implements TodoApiSchema {
    * @param {DeleteOneTodoSchema} todoSchema 
    */
   deleteOneTodo(todoSchema: DeleteOneTodoSchema): Observable<TodoEntity|boolean> {
+
+    if(!todoSchema.id) {
+      throw new Error('id is mandatory'); 
+    }
     
     // Recherche de l'index
     const todoIndex: number = this.todos.findIndex(todo=> todo.id === todoSchema.id);    
