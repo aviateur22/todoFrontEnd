@@ -1,8 +1,8 @@
 import { Component, Input} from '@angular/core';
-import { Router } from '@angular/router';
 import { TodoEntity } from '../../domain/entities/todo/TodoEntity';
 import { CheckToggleTodoSchema } from '../../domain/ports/todoSchema/CheckToggleTodoSchema';
 import { UseCaseServiceImp } from '../../domain/services/UseCaseServiceImp';
+import { RouterServiceImp } from '../../infra/services/RouterServiceImp';
 
 @Component({
   selector: 'app-todo',
@@ -20,7 +20,7 @@ export class TodoComponent {
   // Status
   todoStatusHtml: boolean = false;
 
-  constructor(private router: Router) {console.log('d')}
+  constructor() {}
   
   ngOnInit() {
    // Titre de la Todo
@@ -34,7 +34,7 @@ export class TodoComponent {
    * Affichage detail d'une Todo
    */
   showTodoContent() {
-    this.router.navigate(['./update-todo/' + this.todo.id]);
+    RouterServiceImp.getRouter().navigate('./update-todo/' + this.todo.id);
   }
 
   /**

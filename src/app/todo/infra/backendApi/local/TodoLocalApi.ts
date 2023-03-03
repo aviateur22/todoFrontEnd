@@ -41,12 +41,13 @@ export class TodoLocalApi implements TodoApiSchema {
   }
 
   /**
-   * 
-   * @param todo 
+   * Mise a jour d'une Todo
+   * @param {UpdateTodoSchema} todo 
    */
   updateOneTodo(todo: UpdateTodoSchema): Observable<TodoEntity> {
-    throw new Error("Method not implemented.");
+    return HttpServiceImp.getHttp().patch(this.uri + '/' + todo.id, todo);
   }
+  
   deleteOneTodo(todo: DeleteOneTodoSchema): Observable<boolean | TodoEntity> {
     throw new Error("Method not implemented.");
   }
