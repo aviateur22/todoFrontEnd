@@ -14,6 +14,6 @@ export interface HttpSchema <D, T> {
   get(url: string): Observable<D|T>
 
   // Delete
-  delete(url: string, data: any): Observable<D|T>
+  delete(url: string): Observable<D|T>
   
 }

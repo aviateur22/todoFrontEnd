@@ -12,11 +12,16 @@ export class AngularHttp<D, T> implements HttpSchema<D, T> {
    * @returns {Observable<D | T>}
    */
   patch(url: string, data: any): Observable<D | T> {
-    return this.http.patch<D|T>(url, data)
+    return this.http.patch<D|T>(url, data);
   }
 
-  delete(url: string, data: any): Observable<D | T> {
-    throw new Error("Method not implemented.");
+  /**
+   * Delete
+   * @param {string} url 
+   * @param {any} data 
+   */
+  delete(url: string): Observable<D | T> {   
+    return this.http.delete<D|T>(url);
   }
 
   /**

@@ -1,8 +1,14 @@
 <div>
+  <!-- modal suppression -->
+  <div *ngIf="isModalToShow">
+    <app-modal (deleteTodoEmitter)="deleteSelectedTodo()" (hideModalEmitter)="hideModalConfirmation()"></app-modal>
+  </div>  
+
+  <!-- Liste des todos -->
   <ul>
     <!-- Liste des todos -->
     <li *ngFor="let todo of todos; let i=index">
-      <app-todo [todo]="todo"></app-todo>  
+      <app-todo (deleteTodoEmitter)="showModalConfirmation($event)" [todo]="todo"></app-todo>  
     </li>  
   </ul>
   

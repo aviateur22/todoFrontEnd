@@ -13,8 +13,7 @@ import { InputComponent } from './todo/presentation/todo-card/elements/input/inp
 import { RectangleButtonComponent } from './todo/presentation/todo-card/elements/rectangle-button/rectangle-button.component';
 import { TitlePageComponent } from './todo/presentation/todo-card/elements/title-page/title-page.component';
 import { RoundedButtonComponent } from './todo/presentation/todo/elements/rounded-button/rounded-button.component';
-
-
+import { ModalComponent } from './todo/presentation/todos/elements/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +24,8 @@ import { RoundedButtonComponent } from './todo/presentation/todo/elements/rounde
     InputComponent,    
     RectangleButtonComponent,
     TitlePageComponent,
-    RoundedButtonComponent
+    RoundedButtonComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

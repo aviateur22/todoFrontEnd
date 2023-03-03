@@ -118,6 +118,7 @@ export class TodoCardComponent {
    * @param {UpdateTodoSchema} todo 
    */
   updateTodo(todo: UpdateTodoSchema) {
+    console.log(todo)
     UseCaseServiceImp.getUseCasesServiceImp().updateOneTodoUseCase.execute(todo).subscribe(result=>RouterServiceImp.getRouter().navigate("/todos"));
   }
 

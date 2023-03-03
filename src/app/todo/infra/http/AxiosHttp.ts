@@ -7,7 +7,7 @@ export class AxiosHttp<T, D> implements HttpSchema<T, D> {
     throw new Error("Method not implemented.");
   }
 
-  delete(url: string, data: any): Observable<T | D> {
+  delete(url: string): Observable<T | D> {
     throw new Error("Method not implemented.");
   }
 

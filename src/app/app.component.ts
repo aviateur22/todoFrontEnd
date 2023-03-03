@@ -56,7 +56,7 @@ export class AppComponent {
   setBackendService() {   
     // Selection backend
     const apiServiceImp = new ApiServiceImp(this.backendSourceApiSelection);
-    apiServiceImp.setBackendApi(BackendApiSource.mockBackendApi);
+    apiServiceImp.setBackendApi(BackendApiSource.localBackEndApi);
   }
 
   /**
