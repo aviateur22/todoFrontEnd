@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { ToastrService } from 'ngx-toastr';
 import { UseCaseServiceImp } from '../../domain/services/UseCaseServiceImp';
 import { FindOneTodoSchema } from '../../domain/ports/todoSchema/FindOneTodoSchema';
 import { AddTodoSchema } from '../../domain/ports/todoSchema/AddTodoSchema';
 import { UpdateTodoSchema } from '../../domain/ports/todoSchema/UpdateTodoSchema';
 import { TodoEntity } from '../../domain/entities/todo/TodoEntity';
 import { RouterServiceImp } from '../../infra/services/RouterServiceImp';
+
 
 @Component({
   selector: 'app-todo-card',
@@ -30,7 +31,8 @@ export class TodoCardComponent {
 
   constructor (
     private fb: FormBuilder, 
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -119,7 +121,19 @@ export class TodoCardComponent {
    */
   updateTodo(todo: UpdateTodoSchema) {
     console.log(todo)
-    UseCaseServiceImp.getUseCasesServiceImp().updateOneTodoUseCase.execute(todo).subscribe(result=>RouterServiceImp.getRouter().navigate("/todos"));
+    UseCaseServiceImp.getUseCasesServiceImp().updateOneTodoUseCase.execute(todo).subscribe({
+
+      // Success mise à jour
+      next: result =>{
+        RouterServiceImp.getRouter().navigate('/todos');
+        this.toastr.success('todo is updated');
+      },
+
+      // Echec
+      error: error=>{      
+        this.toastr.error(error.error.errorMessage);
+      }      
+    });
   }
 
   /**
@@ -127,7 +141,27 @@ export class TodoCardComponent {
    * @param {AddTodoSchema} todo 
    */
   saveTodo(todo: AddTodoSchema) {
-    UseCaseServiceImp.getUseCasesServiceImp().addTodoUseCase.execute(todo).subscribe(result=> RouterServiceImp.getRouter().navigate('/todos'));    
+    UseCaseServiceImp.getUseCasesServiceImp().addTodoUseCase.execute(todo).subscribe({
+
+      // Succes
+      next: result =>{
+        RouterServiceImp.getRouter().navigate('/todos');
+        this.toastr.success('todo is added');
+      },
+
+      // Echec
+      error: error=>{         
+        switch(typeof error.error.errorMessage !== 'undefined') {
+        case true: 
+          this.toastr.error(error.error.errorMessage); 
+        break;
+
+        default: 
+          this.toastr.error(error.message); 
+        break;
+        }        
+      }      
+    })   
   }
 
   /**
@@ -135,24 +169,36 @@ export class TodoCardComponent {
    * @param {FindOneTodoSchema} todo 
    */
   findOneTodo(todo: FindOneTodoSchema) {
-    UseCaseServiceImp.getUseCasesServiceImp().findOneTodoUseCase.execute(todo).subscribe((todo: any)=>{
+    UseCaseServiceImp.getUseCasesServiceImp().findOneTodoUseCase.execute(todo).subscribe({
+      next: (todo: any)=>{
 
-      // Exception si todo pas trouvé
-      if(!todo) {
-        throw new Error('todo not find');
+        // Exception si todo pas trouvé
+        if(!todo) {
+          throw new Error('todo not find');
+        }
+
+        let todoData: any;
+
+        switch(Object.keys(todo).length > 2) {
+        // MockBackend
+        case true: todoData = todo; break;
+
+          // LocalBackend-WebServer
+        case false: todoData = todo.todo; break;
+        }
+        this.constructFormGroup(todoData);
+      },
+      error: error =>{
+        this.toastr.error(error.error.errorMessage);
       }
 
-      let todoData: any;
-
-      switch(Object.keys(todo).length > 2) {
-      // MockBackend
-      case true: todoData = todo; break;
-
-        // LocalBackend-WebServer
-      case false: todoData = todo.todo; break;
-      }
-      
-      this.constructFormGroup(todoData);
     });
+  }
+
+  /**
+   * Redirection vers la liste des Todos
+   */
+  navigateToTodos() {
+    RouterServiceImp.getRouter().navigate('/todos');
   }
 }

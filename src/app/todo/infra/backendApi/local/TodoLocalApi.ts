@@ -13,6 +13,7 @@ import { HttpServiceImp } from "../../services/HttpServiceImp";
  */
 export class TodoLocalApi implements TodoApiSchema {  
 
+  //private uri = 'https://my-todos-app.herokuapp.com/api/v1/todo';
   private uri = 'http://localhost:4000/api/v1/todo';
 
   /**

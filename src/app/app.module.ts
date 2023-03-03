@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ToastrModule } from "ngx-toastr";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Composant Html
 import { TodosComponent } from './todo/presentation/todos/todos.component';
@@ -29,10 +31,14 @@ import { ModalComponent } from './todo/presentation/todos/elements/modal/modal.c
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule    
+    ReactiveFormsModule,
+    ToastrModule.forRoot({
+      preventDuplicates: true
+    }), 
   ],
   providers: [],
   bootstrap: [AppComponent]
