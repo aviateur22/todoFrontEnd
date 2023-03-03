@@ -1,11 +1,13 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UseCaseServiceImp } from '../../domain/services/UseCaseServiceImp';
 import { FindOneTodoSchema } from '../../domain/ports/todoSchema/FindOneTodoSchema';
 import { AddTodoSchema } from '../../domain/ports/todoSchema/AddTodoSchema';
 import { UpdateTodoSchema } from '../../domain/ports/todoSchema/UpdateTodoSchema';
+import { TodoEntity } from '../../domain/entities/todo/TodoEntity';
+import { RouterServiceImp } from '../../infra/services/RouterServiceImp';
 
 @Component({
   selector: 'app-todo-card',
@@ -28,10 +30,8 @@ export class TodoCardComponent {
 
   constructor (
     private fb: FormBuilder, 
-    private route: ActivatedRoute,
-    private router: Router
-  ) {    
-  }
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
     // Construction formBuilder
@@ -44,31 +44,18 @@ export class TodoCardComponent {
   /**
    * Vérification des parametre de la route
    */
-  checkUrl() {
-    //vérification de l'URL et déduction de l'action UPDATE ou CREATE
+  checkUrl() {   
     this.route.params.subscribe(params => {  
-      
-      // Update Todo
-      if (params['id']) {              
-        
-        this.isTodoToUpdate = true;
-
-        this.titlePageTextHtml = 'modifier un item';
-
-        this.buttonTextHtml = 'modifier';
-        
-        // Recherche updateTodo 
-        this.findOneTodo({
-          id: params['id']
-        });
-      }
+      if (params['id']) {
+        this.initializeUpdateTodo(params['id']);
+      }      
     });
   }
 
   /**
    * Construction du formgroup
    */
-  constructFormGroup(todoData: any = null) {    
+  constructFormGroup(todoData?: TodoEntity) {    
     this.todoFormGroup = this.fb.group({
       // id de la Todo
       id: [todoData ? todoData.id : ''],
@@ -77,8 +64,28 @@ export class TodoCardComponent {
       title: [todoData ? todoData.title : '', Validators.required],
 
       // Description de la todo
-      description: [todoData ? todoData.description : '']
+      description: [todoData ? todoData.description : ''],
+
+      // Statut de la todo
+      status: [todoData ? todoData.status : false]
     })
+  }
+
+  /**
+   * Initialisation d'une Todo a updater
+   * @param {string} todoId
+   */
+  initializeUpdateTodo(todoId: string) {
+    this.isTodoToUpdate = true;
+
+    this.titlePageTextHtml = 'modifier un item';
+
+    this.buttonTextHtml = 'modifier';
+    
+    // Recherche updateTodo 
+    this.findOneTodo({
+      id: todoId
+    });
   }
 
   /**
@@ -91,7 +98,8 @@ export class TodoCardComponent {
         this.updateTodo({
           id: this.todoFormGroup.controls['id'].value,
           title: this.todoFormGroup.controls['title'].value, 
-          description: this.todoFormGroup.controls['description'].value          
+          description: this.todoFormGroup.controls['description'].value,
+          status: this.todoFormGroup.controls['status'].value     
         }); 
         break;
 
@@ -110,7 +118,7 @@ export class TodoCardComponent {
    * @param {UpdateTodoSchema} todo 
    */
   updateTodo(todo: UpdateTodoSchema) {
-    UseCaseServiceImp.getUseCasesServiceImp().updateOneTodoUseCase.execute(todo).subscribe(result=>this.router.navigateByUrl("/todos"));
+    UseCaseServiceImp.getUseCasesServiceImp().updateOneTodoUseCase.execute(todo).subscribe(result=>RouterServiceImp.getRouter().navigate("/todos"));
   }
 
   /**
@@ -118,7 +126,7 @@ export class TodoCardComponent {
    * @param {AddTodoSchema} todo 
    */
   saveTodo(todo: AddTodoSchema) {
-    UseCaseServiceImp.getUseCasesServiceImp().addTodoUseCase.execute(todo).subscribe(result=>this.router.navigate(['/todos']));    
+    UseCaseServiceImp.getUseCasesServiceImp().addTodoUseCase.execute(todo).subscribe(result=> RouterServiceImp.getRouter().navigate('/todos'));    
   }
 
   /**

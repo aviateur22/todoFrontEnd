@@ -15,7 +15,7 @@ export class HttpSourceSelection<T,D> {
     switch(httpSource) {
       case HttpSource.angularHttp: return this.angularHttp; break;
       case HttpSource.axiosHttp: return this.axiosHttp; break;
-      default: return this.angularHttp; break;
+      default: throw new Error('invalid http selection'); break;
     }
   }
 }

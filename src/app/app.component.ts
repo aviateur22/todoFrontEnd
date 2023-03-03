@@ -12,6 +12,10 @@ import { AngularHttp } from './todo/infra/http/AngularHttp';
 import { AxiosHttp } from './todo/infra/http/AxiosHttp';
 import { ApiServiceImp } from './todo/infra/services/ApiServiceImp';
 import { HttpServiceImp } from './todo/infra/services/HttpServiceImp';
+import { RouterServiceImp } from './todo/infra/services/RouterServiceImp';
+import { RouterSourceSelection } from './todo/infra/helpers/router/RouterSourceSelection';
+import { AngularRouter } from './todo/infra/router/AngularRouter';
+import { RouterSource } from './todo/infra/helpers/router/RouterSource';
 
 @Component({
   selector: 'app-root',
@@ -26,19 +30,24 @@ export class AppComponent {
   // Selection service Http
   protected httpSourceSelection: HttpSourceSelection<any, any>;
 
+  // Slection router
+  protected routerSelection: RouterSourceSelection;
+
   title = 'todo - FrontEnd';
   
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {    
     this.httpSourceSelection = new HttpSourceSelection(new AngularHttp(http), new AxiosHttp());
     this.backendSourceApiSelection = new BackendSourceApiSelection(new TodoLocalApi(), new TodoWebApi(), new TodoMockApi());
+    this.routerSelection = new RouterSourceSelection(new AngularRouter(router, route));
   } 
 
   ngOnInit() {    
     this.setBackendService();
     this.setHttpService();
+    this.setRouterService();
 
     // Navigation vers les todos
-    this.router.navigate(['/todos'])
+    RouterServiceImp.getRouter().navigate('/todos');
   }
 
   /**
@@ -57,5 +66,13 @@ export class AppComponent {
     // Selection Service http
     const httpServiceImp = new HttpServiceImp(this.httpSourceSelection);
     httpServiceImp.setHttp(HttpSource.angularHttp);
+  }
+
+  /**
+   * Selection router
+   */
+  setRouterService() {
+    const routerServiceImp = new RouterServiceImp(this.routerSelection);
+    routerServiceImp.setRouter(RouterSource.angularRouter);
   }
 }
