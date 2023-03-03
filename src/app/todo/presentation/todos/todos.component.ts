@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { TodoEntity } from '../../domain/entities/todo/TodoEntity';
 import { DeleteOneTodoSchema } from '../../domain/ports/todoSchema/DeleteOneTodoSchema';
 import { UseCaseServiceImp } from '../../domain/services/UseCaseServiceImp';
-import { RouterServiceImp } from '../../infra/services/RouterServiceImp';
+
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
@@ -20,7 +21,7 @@ export class TodosComponent {
   // Todo a supprimer
   deleteTodo!: DeleteOneTodoSchema;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.findAllTodos();
@@ -71,12 +72,22 @@ export class TodosComponent {
    * Suppression d'une Todo
    */
   deleteSelectedTodo(){
-    UseCaseServiceImp.getUseCasesServiceImp().deleteOneTodoUseCase.execute(this.deleteTodo).subscribe(result=>{    
-      // Masque la modal
-      this.isModalToShow = false;
+    UseCaseServiceImp.getUseCasesServiceImp().deleteOneTodoUseCase.execute(this.deleteTodo).subscribe({
+      // Succes
+      next: result=>{    
+        // Masque la modal
+        this.isModalToShow = false;
+  
+        // Rechargemrnt Todos
+        this.findAllTodos();
 
-      // Rechargemrnt Todos
-      this.findAllTodos();
-    });
+        this.toastr.success('todo is deleted');
+      },
+
+      // Error
+      error: error => {
+        this.toastr.error(error.error.errorMessage);
+      }      
+    });   
   }
 }

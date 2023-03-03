@@ -16,6 +16,9 @@ export class RectangleButtonComponent {
 
   @Output() clickEmitter: EventEmitter<any> = new EventEmitter<any>();
 
+  /**
+   * Action du click
+   */
   click() {
     this.clickEmitter.emit();
   }

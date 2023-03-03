@@ -24,6 +24,14 @@
     labelText="description"
   ></app-input>
 
-  <!-- Submit button-->
-  <app-rectangle-button type="submit" buttonText={{buttonTextHtml}}></app-rectangle-button>
+  <!-- container -->
+  <div>
+     <!-- Submit button-->
+    <app-rectangle-button type="submit" buttonText={{buttonTextHtml}}></app-rectangle-button>
+
+    <!-- Annulation -->
+    <app-rectangle-button (clickEmitter)="navigateToTodos()" type="button" buttonText="'annuler'"></app-rectangle-button>
+  </div>
+ 
+
 </form>
