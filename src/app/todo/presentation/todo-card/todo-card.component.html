@@ -1,6 +1,6 @@
 <form [formGroup]="todoFormGroup" (submit)="addEditTodo()">
   <!-- Titre de la page-->
-  <app-title-page titlePageText={{titlePageText}}></app-title-page>
+  <app-title-page titlePageText={{titlePageTextHtml}}></app-title-page>
 
   <!-- Titre -->
   <app-input
@@ -25,5 +25,5 @@
   ></app-input>
 
   <!-- Submit button-->
-  <app-rectangle-button type="submit" buttonText="Ajouter"></app-rectangle-button>
+  <app-rectangle-button type="submit" buttonText={{buttonTextHtml}}></app-rectangle-button>
 </form>

@@ -12,5 +12,11 @@ export class RectangleButtonComponent {
   @Input() buttonText: string = '';
 
   // Type d'input ()
-  @Input() type: string = ''; 
+  @Input() type: string = '';
+
+  @Output() clickEmitter: EventEmitter<any> = new EventEmitter<any>();
+
+  click() {
+    this.clickEmitter.emit();
+  }
 }

@@ -320,13 +320,7 @@
 
     <span>{{ title }} app is running!</span>
   </div>
-
+  <router-outlet></router-outlet> 
 </div>
 
-<!-- Liste des Todos-->
-<app-todos [todos]="todos"></app-todos>
 
-<!-- Ajouter une Todo-->
-<app-todo-card titlePageText="ajouter un item"></app-todo-card>
-
-<router-outlet></router-outlet>

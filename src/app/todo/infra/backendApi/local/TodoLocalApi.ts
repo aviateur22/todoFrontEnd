@@ -32,8 +32,12 @@ export class TodoLocalApi implements TodoApiSchema {
     return HttpServiceImp.getHttp().get(this.uri + '/find-all-todos')
   }
 
+  /**
+   * Recherche de 1 Todo
+   * @param {FindOneTodoSchema} todo 
+   */
   findOneTodo(todo: FindOneTodoSchema): Observable<TodoEntity | null> {
-    throw new Error("Method not implemented.");
+    return HttpServiceImp.getHttp().get(this.uri + '/' + todo.id);
   }
 
   /**

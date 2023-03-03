@@ -1,9 +1,9 @@
 <div (click)="showTodoContent()" class="todo">
     <!-- checkbox -->
-    <input (click)="checkToggleTodo($event)" type="checkbox" [checked]="todoComplete">
+    <input (click)="checkToggleTodo($event)" type="checkbox" [checked]="todoStatusHtml">
 
     <!-- Titre -->
-    <p> {{ todoTitle }} </p>
+    <p> {{ todoTitleHtml }} </p>
 
     <!-- button supp -->
     <app-rounded-button></app-rounded-button>
