@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TodoEntity } from '../../domain/entities/todo/TodoEntity';
+import { UseCaseServiceImp } from '../../domain/services/UseCaseServiceImp';
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
@@ -8,11 +9,34 @@ import { TodoEntity } from '../../domain/entities/todo/TodoEntity';
 })
 export class TodosComponent {
 
-  @Input() todos: Array<TodoEntity> = [];
+  // liste des Todos
+  todos: Array<TodoEntity> = [];
 
-    constructor(private fb: FormBuilder) {}
+  constructor(private router: Router) { }
 
-  ngOnInit(){ } 
+  ngOnInit() {
+    this.findAllTodos();
+   } 
 
+  /**
+   * Récupération des Todos
+   */
+  findAllTodos() {  
+    UseCaseServiceImp.getUseCasesServiceImp().findAllTodoUseCase.execute().subscribe((todos: any)=>{
+      switch(Array.isArray(todos)) {
+      // MockBackend
+      case true: this.todos = todos; break;
 
+        // LocalBackend-WebServer
+      case false: this.todos = todos.todos; break;
+      }
+    });
+  }
+
+  /**
+   * Redirection vers l'ajout d'une Todo
+   */
+  navigateToAddTodoUrl(){
+    this.router.navigate(['./add-todo']);
+  }
 }

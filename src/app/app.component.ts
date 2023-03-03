@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { TodoEntity } from './todo/domain/entities/todo/TodoEntity';
-import { UseCaseServiceImp } from './todo/domain/services/UseCaseServiceImp';
 import { TodoLocalApi } from './todo/infra/backendApi/local/TodoLocalApi';
 import { TodoMockApi } from './todo/infra/backendApi/mock/TodoMockApi';
 import { TodoWebApi } from './todo/infra/backendApi/web/TodoWebApi';
@@ -27,20 +25,20 @@ export class AppComponent {
 
   // Selection service Http
   protected httpSourceSelection: HttpSourceSelection<any, any>;
+
+  title = 'todo - FrontEnd';
   
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, private router: Router) {
     this.httpSourceSelection = new HttpSourceSelection(new AngularHttp(http), new AxiosHttp());
     this.backendSourceApiSelection = new BackendSourceApiSelection(new TodoLocalApi(), new TodoWebApi(), new TodoMockApi());
-  }
-  title = 'todo - FrontEnd';
-
-  // liste des Todos
-  todos: Array<TodoEntity> = [];
+  } 
 
   ngOnInit() {    
     this.setBackendService();
     this.setHttpService();
-    this.getAllTodos();
+
+    // Navigation vers les todos
+    this.router.navigate(['/todos'])
   }
 
   /**
@@ -49,7 +47,7 @@ export class AppComponent {
   setBackendService() {   
     // Selection backend
     const apiServiceImp = new ApiServiceImp(this.backendSourceApiSelection);
-    apiServiceImp.setBackendApi(BackendApiSource.mockBackendApi);
+    apiServiceImp.setBackendApi(BackendApiSource.localBackEndApi);
   }
 
   /**
@@ -59,22 +57,5 @@ export class AppComponent {
     // Selection Service http
     const httpServiceImp = new HttpServiceImp(this.httpSourceSelection);
     httpServiceImp.setHttp(HttpSource.angularHttp);
-  }
-
-  /**
-   * Récupération des Todos
-   */
-  getAllTodos() {
-    UseCaseServiceImp.getUseCasesServiceImp().findAllTodoUseCase.execute().subscribe((todos: any)=>{
-      switch(Array.isArray(todos)) {
-      // MockBackend
-      case true: this.todos = todos; break;
-
-        // LocalBackend-WebServer
-      case false: this.todos = todos.todos; break;
-      }
-    });
-
-
   }
 }

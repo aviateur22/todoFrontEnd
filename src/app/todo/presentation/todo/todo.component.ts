@@ -14,19 +14,20 @@ export class TodoComponent {
   // Données sur la Todo
   @Input() todo!: TodoEntity;
 
-  // Titre
-  todoTitle: string = '';
+  // Titre de la todo
+  todoTitleHtml: string = '';
 
   // Status
-  todoComplete: boolean = false;
+  todoStatusHtml: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {console.log('d')}
+  
   ngOnInit() {
    // Titre de la Todo
-   this.todoTitle = this.todo.title;
+   this.todoTitleHtml = this.todo.title;
 
    // Status
-   this.todoComplete = this.todo.status;
+   this.todoStatusHtml = this.todo.status;
   }
 
   /**
