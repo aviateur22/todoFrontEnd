@@ -38,6 +38,10 @@ export class TodoMockApi implements TodoApiSchema {
     // Index   
     const index: number = this.todos.length === 0 ? 1 : Math.max(...this.todos.map(x=>Number(x.id))) + 1;
 
+    if(!todo.title) {
+     throw new Error('title is mandatory');
+    }
+
     const todoModel: TodoEntity = new TodoEntity (
       index.toString(),
       todo.title,
@@ -64,10 +68,14 @@ export class TodoMockApi implements TodoApiSchema {
    * @param {UpdateTodoSchema} todo 
    * @returns {TodoEntity}
    */
-  updateOneTodo(todo: UpdateTodoSchema): Observable<TodoEntity> {   
+  updateOneTodo(todo: UpdateTodoSchema): Observable<TodoEntity> {
 
     // Index
     const index: number = Number(todo.id);
+
+    if(!todo.title) {
+      throw new Error('title is mandatory');
+     }
     
     // Modification des propriété
     this.todos[index - 1].title = todo.title;
