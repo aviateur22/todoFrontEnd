@@ -37,7 +37,8 @@ export class AppComponent {
     this.setRouterService();    
 
     // Navigation vers les todos
-    RouterServiceImp.getRouter().navigate('/todos');
+    // RouterServiceImp.getRouter().navigate('/todos');
+    RouterServiceImp.getRouter().navigate('/add-todo');
   } 
 
   /**

@@ -1,37 +1,49 @@
-<form [formGroup]="todoFormGroup" (submit)="addEditTodo()">
-  <!-- Titre de la page-->
-  <app-title-page titlePageText={{titlePageTextHtml}}></app-title-page>
+<div class="form__container">
+  <form class="form" [formGroup]="todoFormGroup" (submit)="addEditTodo()">
+    <div class="form__input__container">
+      <!-- Titre -->
+      <app-input 
+      class="form__input__group"
+      [todoFormGroup] ="todoFormGroup"
+      controlName="title" 
+      id="title" 
+      type="text" 
+      name="title" 
+      placeholderText="Mon super titre" 
+      labelText="titre"
+      ></app-input>
 
-  <!-- Titre -->
-  <app-input
-    [todoFormGroup] ="todoFormGroup"
-    controlName="title" 
-    id="title" 
-    type="text" 
-    name="title" 
-    placeholderText="Mon super titre" 
-    labelText="tire"
-    ></app-input>
+      <!-- Description -->
+      <app-input 
+      class="form__input__group"
+      [todoFormGroup]="todoFormGroup" 
+      controlName="description" 
+      id="description" 
+      type="text" 
+      name="description" 
+      placeholderText="Ma super description" 
+      labelText="description"
+      ></app-input>
+    </div>    
+  
+    <!-- container -->
+    <div class="button__container">
+       <!-- Submit button-->
+      <app-rectangle-button 
+        class="button__rectangle__container" 
+        type="submit" 
+        buttonText={{buttonTextHtml}}>
+      </app-rectangle-button>
+  
+      <!-- Annulation -->
+      <app-rectangle-button 
+        class="button__rectangle__container" 
+        [isSecondaryButton]="true" 
+        (clickEmitter)="navigateToTodos()" 
+        type="button" 
+        buttonText="annuler">
+      </app-rectangle-button>
+    </div>
+  </form>
+</div>
 
-  <!-- Description -->
-  <app-input 
-    [todoFormGroup]="todoFormGroup" 
-    controlName="description" 
-    id="description" 
-    type="text" 
-    name="description" 
-    placeholderText="Ma super description" 
-    labelText="description"
-  ></app-input>
-
-  <!-- container -->
-  <div>
-     <!-- Submit button-->
-    <app-rectangle-button type="submit" buttonText={{buttonTextHtml}}></app-rectangle-button>
-
-    <!-- Annulation -->
-    <app-rectangle-button (clickEmitter)="navigateToTodos()" type="button" buttonText="'annuler'"></app-rectangle-button>
-  </div>
- 
-
-</form>

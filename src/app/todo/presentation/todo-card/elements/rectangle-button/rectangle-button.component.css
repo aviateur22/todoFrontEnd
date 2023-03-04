@@ -1,0 +1,37 @@
+.button__rectangle {
+  height: 60px;
+  width: 100%;
+  max-width: 550px;
+  color: var(--white_color);
+  background-color: var(--main_color);
+  border: none;
+  text-transform: uppercase;  
+}
+
+.secondary--color {
+  border: solid 0.5px var(--error_color);
+  background: white;
+  color: var(--error_color);
+}
+
+@media screen and (min-width: 550px) {
+  .button__rectangle {
+    border-radius: 10px;    
+  }
+
+  .secondary--color {
+    margin-top: 15px;
+  }
+}
+
+@media screen and (min-width: 768px){
+  .button__rectangle {
+    font-size: var(--text_tablet)!important; 
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .button__rectangle {
+    font-size: var(--text_desktop) !important; 
+  }
+}

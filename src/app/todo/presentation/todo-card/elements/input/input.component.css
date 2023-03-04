@@ -1,0 +1,17 @@
+.input__group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
+}
+
+.input__label {
+  text-transform: uppercase;
+  color: var(--main_color);
+  padding-bottom: 5px;
+  font-weight: var(--font_medium);
+}
+
+.input__text {
+  height: 30px;
+}

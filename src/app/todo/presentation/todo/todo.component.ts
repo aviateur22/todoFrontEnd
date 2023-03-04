@@ -3,6 +3,7 @@ import { TodoEntity } from '../../domain/entities/todo/TodoEntity';
 import { CheckToggleTodoSchema } from '../../domain/ports/todoSchema/CheckToggleTodoSchema';
 import { UseCaseServiceImp } from '../../domain/services/UseCaseServiceImp';
 import { RouterServiceImp } from '../../infra/services/RouterServiceImp';
+import { BannerService } from '../services/banner.service';
 
 @Component({
   selector: 'app-todo',
@@ -23,7 +24,7 @@ export class TodoComponent {
   // Status
   todoStatusHtml: boolean = false;
 
-  constructor() {}
+  constructor(private bannerService: BannerService) {}
   
   ngOnInit() {
    // Titre de la Todo
@@ -37,6 +38,9 @@ export class TodoComponent {
    * Affichage detail d'une Todo
    */
   showTodoContent() {
+    // Modification du text de la banner
+    this.bannerService.changeBannerText('modifier un item');
+
     RouterServiceImp.getRouter().navigate('./update-todo/' + this.todo.id);
   }
 

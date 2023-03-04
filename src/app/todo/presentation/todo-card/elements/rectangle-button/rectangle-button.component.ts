@@ -14,6 +14,10 @@ export class RectangleButtonComponent {
   // Type d'input ()
   @Input() type: string = '';
 
+  // Indique si le bouton est du type secondaire
+  @Input() isSecondaryButton = false;
+
+  // Action click
   @Output() clickEmitter: EventEmitter<any> = new EventEmitter<any>();
 
   /**

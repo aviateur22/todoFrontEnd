@@ -1,6 +1,7 @@
-<div [formGroup]="todoFormGroup" >
-  <label [for]="id"> {{ labelText }}</label>
+<div class="input__group" [formGroup]="todoFormGroup" >
+  <label class="input__label" [for]="id"> {{ labelText }}</label>
   <input
+  class="input__text"
     [formControlName]="controlName"
     [placeholder]="placeholderText" 
     [type]="type" 
