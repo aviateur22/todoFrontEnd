@@ -1,11 +1,11 @@
 import { Observable, of } from "rxjs";
-import { TodoEntity } from "../../../domain/entities/todo/TodoEntity";
-import { TodoApiSchema } from "../../../domain/ports/apiSchemas/TodoApiSchema";
-import { AddTodoSchema } from "../../../domain/ports/todoSchema/AddTodoSchema";
-import { CheckToggleTodoSchema } from "../../../domain/ports/todoSchema/CheckToggleTodoSchema";
-import { DeleteOneTodoSchema } from "../../../domain/ports/todoSchema/DeleteOneTodoSchema";
-import { FindOneTodoSchema } from "../../../domain/ports/todoSchema/FindOneTodoSchema";
-import { UpdateTodoSchema } from "../../../domain/ports/todoSchema/UpdateTodoSchema";
+import { TodoEntity } from "src/app/todo/domain/entities/todo/TodoEntity";
+import { TodoApiSchema } from "src/app/todo/domain/ports/apiSchemas/TodoApiSchema";
+import { AddTodoSchema } from "src/app/todo/domain/ports/todoSchema/AddTodoSchema";
+import { CheckToggleTodoSchema } from "src/app/todo/domain/ports/todoSchema/CheckToggleTodoSchema";
+import { DeleteOneTodoSchema } from "src/app/todo/domain/ports/todoSchema/DeleteOneTodoSchema";
+import { FindOneTodoSchema } from "src/app/todo/domain/ports/todoSchema/FindOneTodoSchema";
+import { UpdateTodoSchema } from "src/app/todo/domain/ports/todoSchema/UpdateTodoSchema";
 
 export class TodoMockApi implements TodoApiSchema {
  

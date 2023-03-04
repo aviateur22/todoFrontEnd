@@ -29,7 +29,7 @@
               "src/assets/css/reset.css",
               "src/assets/css/toastr.css"
             ],
-            "scripts": []
+            "scripts": []            
           },
           "configurations": {
             "production": {

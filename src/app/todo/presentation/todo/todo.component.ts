@@ -14,6 +14,7 @@ export class TodoComponent {
   // Données sur la Todo
   @Input() todo!: TodoEntity;
 
+  // Emitter Suppression Todo
   @Output() deleteTodoEmitter: EventEmitter<any> = new EventEmitter<any>()
 
   // Titre de la todo
@@ -56,7 +57,7 @@ export class TodoComponent {
   }
 
   /**
-   * 
+   * Suppression Todo
    */
   deleteTodo(){
     UseCaseServiceImp.getUseCasesServiceImp().findOneTodoUseCase.execute(this.todo).subscribe((todo: any)=>{

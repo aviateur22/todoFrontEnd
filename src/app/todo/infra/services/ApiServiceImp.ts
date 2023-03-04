@@ -1,11 +1,11 @@
 import { BackendApiServiceException } from "../../exceptions/BackendApiServiceException";
 import { BackendApi } from "../helpers/backend/BackendApi";
-import { BackendSourceApiSelection } from "../helpers/backend/BackendSourceSelection";
+import { EnvironmentBackendSelection } from "../helpers/environment/EnvironmentBackendSelection";
 
 
 export class ApiServiceImp {
 
-  constructor(private backendSourceApiSelection: BackendSourceApiSelection) {}
+  constructor(private environmentBackendSelection: EnvironmentBackendSelection) {}
   
   // Backend sélectionné
   protected static backendApi: BackendApi;
@@ -14,8 +14,8 @@ export class ApiServiceImp {
    * Selection du backend
    * @param backendApiSource 
    */
-  setBackendApi(backendApiSource: number): void {   
-    ApiServiceImp.backendApi = this.backendSourceApiSelection.setBackend(backendApiSource);
+  setBackendApi(environmentSource: number): void {   
+    ApiServiceImp.backendApi = this.environmentBackendSelection.setBackend(environmentSource);
   }
 
   /**
