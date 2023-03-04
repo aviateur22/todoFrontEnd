@@ -1,4 +1,4 @@
-import { map, Observable } from "rxjs";
+import { Observable } from "rxjs";
 import { TodoEntity } from "src/app/todo/domain/entities/todo/TodoEntity";
 import { TodoApiSchema } from "src/app/todo/domain/ports/apiSchemas/TodoApiSchema";
 import { AddTodoSchema } from "src/app/todo/domain/ports/todoSchema/AddTodoSchema";
@@ -6,15 +6,22 @@ import { CheckToggleTodoSchema } from "src/app/todo/domain/ports/todoSchema/Chec
 import { DeleteOneTodoSchema } from "src/app/todo/domain/ports/todoSchema/DeleteOneTodoSchema";
 import { FindOneTodoSchema } from "src/app/todo/domain/ports/todoSchema/FindOneTodoSchema";
 import { UpdateTodoSchema } from "src/app/todo/domain/ports/todoSchema/UpdateTodoSchema";
-import { HttpServiceImp } from "../../services/HttpServiceImp";
+import { EnvironmentServiceImp } from "../../../services/EnvironmentServiceImp";
+import { HttpServiceImp } from "../../../services/HttpServiceImp";
 
 /**
  * Récupération Todo via serverLocal
  */
-export class TodoLocalApi implements TodoApiSchema {  
+export class TodoServerApi implements TodoApiSchema {
+  // Domain
+  private domain = EnvironmentServiceImp.getEnvironment().domain;
+
+  // Api
+  private api = EnvironmentServiceImp.getEnvironment().api;
 
   //private uri = 'https://my-todos-app.herokuapp.com/api/v1/todo';
-  private uri = 'http://localhost:4000/api/v1/todo';
+  private uri = this.domain + this.api;
+
 
   /**
    * Ajout d'une Todo
