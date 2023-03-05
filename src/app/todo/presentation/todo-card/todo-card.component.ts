@@ -148,7 +148,6 @@ export class TodoCardComponent {
       
       // Succes
       next: result =>{
-        console.log(result);
         RouterServiceImp.getRouter().navigate('/todos');
         this.toastr.success('todo is added');
       },

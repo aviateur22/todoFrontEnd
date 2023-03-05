@@ -39,7 +39,7 @@ export class TodoDataAccessLayer {
         this.addTodo(addTodo, findAllTodos);
       break;
     }    
-    console.log();
+   
   }
 
   /**
