@@ -1,0 +1,24 @@
+<div class="modal__container">
+  <div class="modal">
+    <p class="modal__text"> confirmer la suppression ?</p>
+
+    <!-- conteneur-->
+    <div class="modal__button__container">
+
+      <!-- Confirmaton suppression Todo-->
+      <app-rectangle-button 
+        [isButtonSmallHeight]="true"
+        (clickEmitter)="DeleteSelectedTodo()" 
+        buttonText="oui"
+       ></app-rectangle-button>
+
+      <!-- Ferme la modal-->
+      <app-rectangle-button 
+        [isButtonSmallHeight]="true"
+        [isSecondaryButton]="true"
+        (clickEmitter)="closeModal()" 
+        buttonText="non"
+       ></app-rectangle-button>
+    </div>
+  </div>
+</div>

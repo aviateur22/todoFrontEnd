@@ -1,25 +1,21 @@
-import { BackendApiException } from "../../exceptions/BackendApiException";
+import { BackendApiServiceException } from "../../exceptions/BackendApiServiceException";
 import { BackendApi } from "../helpers/backend/BackendApi";
-import { BackendSourceApiSelection } from "../helpers/backend/BackendSourceSelection";
+import { EnvironmentBackendSelection } from "../helpers/environment/EnvironmentBackendSelection";
 
 
 export class ApiServiceImp {
 
-  constructor(private backendSourceApiSelection: BackendSourceApiSelection) {
-
-  }
+  constructor(private environmentBackendSelection: EnvironmentBackendSelection) {}
   
   // Backend sélectionné
   protected static backendApi: BackendApi;
 
   /**
-   * 
+   * Selection du backend
    * @param backendApiSource 
    */
-  setBackendApi(backendApiSource: number): void {   
-    //const backendSourceApiSelection = new BackendSourceApiSelection();
-    ApiServiceImp.backendApi = this.backendSourceApiSelection.setBackend(backendApiSource);
-
+  setBackendApi(environmentSource: number): void {   
+    ApiServiceImp.backendApi = this.environmentBackendSelection.setBackend(environmentSource);
   }
 
   /**
@@ -28,7 +24,7 @@ export class ApiServiceImp {
    */
   static getBackendApi(): BackendApi {
     if(typeof ApiServiceImp.backendApi === 'undefined') {
-      throw new BackendApiException('Erreur pas de backend de selectionné')
+      throw new BackendApiServiceException('No backend service Selected');
     }
     console.log(ApiServiceImp.backendApi);
     return ApiServiceImp.backendApi;

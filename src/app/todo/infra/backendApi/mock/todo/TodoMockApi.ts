@@ -1,17 +1,12 @@
-import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
-import { TodoEntity } from "../../../domain/entities/todo/TodoEntity";
-import { TodoApiSchema } from "../../../domain/ports/apiSchemas/TodoApiSchema";
-import { AddTodoSchema } from "../../../domain/ports/todoSchema/AddTodoSchema";
-import { CheckToggleTodoSchema } from "../../../domain/ports/todoSchema/CheckToggleTodoSchema";
-import { DeleteOneTodoSchema } from "../../../domain/ports/todoSchema/DeleteOneTodoSchema";
-import { FindOneTodoSchema } from "../../../domain/ports/todoSchema/FindOneTodoSchema";
-import { UpdateTodoSchema } from "../../../domain/ports/todoSchema/UpdateTodoSchema";
+import { TodoEntity } from "src/app/todo/domain/entities/todo/TodoEntity";
+import { TodoApiSchema } from "src/app/todo/domain/ports/apiSchemas/TodoApiSchema";
+import { AddTodoSchema } from "src/app/todo/domain/ports/todoSchema/AddTodoSchema";
+import { CheckToggleTodoSchema } from "src/app/todo/domain/ports/todoSchema/CheckToggleTodoSchema";
+import { DeleteOneTodoSchema } from "src/app/todo/domain/ports/todoSchema/DeleteOneTodoSchema";
+import { FindOneTodoSchema } from "src/app/todo/domain/ports/todoSchema/FindOneTodoSchema";
+import { UpdateTodoSchema } from "src/app/todo/domain/ports/todoSchema/UpdateTodoSchema";
 
-
-@Injectable({
-  providedIn: 'root'
-})
 export class TodoMockApi implements TodoApiSchema {
  
   // Liste des todos
@@ -40,8 +35,12 @@ export class TodoMockApi implements TodoApiSchema {
    * @returns { Array<TodoEntity> }
    */
   saveTodo(todo: AddTodoSchema): Observable<TodoEntity> {
-    // Index
+    // Index   
     const index: number = this.todos.length === 0 ? 1 : Math.max(...this.todos.map(x=>Number(x.id))) + 1;
+
+    if(!todo.title) {
+     throw new Error('title is mandatory');
+    }
 
     const todoModel: TodoEntity = new TodoEntity (
       index.toString(),
@@ -69,10 +68,14 @@ export class TodoMockApi implements TodoApiSchema {
    * @param {UpdateTodoSchema} todo 
    * @returns {TodoEntity}
    */
-  updateOneTodo(todo: UpdateTodoSchema): Observable<TodoEntity> {   
+  updateOneTodo(todo: UpdateTodoSchema): Observable<TodoEntity> {
 
     // Index
     const index: number = Number(todo.id);
+
+    if(!todo.title) {
+      throw new Error('title is mandatory');
+    }
     
     // Modification des propriété
     this.todos[index - 1].title = todo.title;
@@ -113,6 +116,11 @@ export class TodoMockApi implements TodoApiSchema {
    * @returns {TodoModel|null}
    */
   findOneTodo(todoSchema: FindOneTodoSchema): Observable<TodoEntity|null> {
+
+    if(!todoSchema.id) {
+      throw new Error('id is mandatory');
+    }
+
     const findTodo = this.todos.find(todo => (todoSchema.id === todo.id));
     return typeof findTodo === 'undefined' ?
       of(null) :  
@@ -124,6 +132,10 @@ export class TodoMockApi implements TodoApiSchema {
    * @param {DeleteOneTodoSchema} todoSchema 
    */
   deleteOneTodo(todoSchema: DeleteOneTodoSchema): Observable<TodoEntity|boolean> {
+
+    if(!todoSchema.id) {
+      throw new Error('id is mandatory'); 
+    }
     
     // Recherche de l'index
     const todoIndex: number = this.todos.findIndex(todo=> todo.id === todoSchema.id);    

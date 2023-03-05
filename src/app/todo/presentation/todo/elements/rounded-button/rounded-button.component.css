@@ -1,0 +1,40 @@
+.button__rounded {
+  position: relative;
+  color: var(--white_color);
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+  background-color: var(--main_color);
+}
+
+.button__rounded__svg {  
+ scale: 1.0;
+ color: white;
+ transition: all 0.5s ease-in-out;
+}
+
+.button__rounded:hover {
+  background-color: white;
+  border: 1px solid var(--main_color);
+}
+
+.button__rounded:hover .button__rounded__svg {
+  color: var(--main_color); 
+}
+
+@media screen and (min-width: 768px) {
+  .button__rounded{   
+    width: 60px;
+    height: 60px;
+  }
+
+  .button__rounded__svg {  
+    scale: 1.2;
+   }
+}

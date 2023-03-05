@@ -1,0 +1,35 @@
+.banner__container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.banner {
+  width: 100%;
+  height: var(--banner_height);
+  background-color: var(--main_color);
+  color: var(--white_color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: var(--max_width);
+}
+
+.banner__text {
+  text-transform: uppercase;
+  font-weight: var(--font_heavy);
+  font-size: var(--title_mobile);
+  letter-spacing: 1.5px;
+}
+
+@media screen and (min-width: 768px) {
+  .banner__text {   
+    font-size: var(--title_tablet) !important;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .banner__text {   
+    font-size: var(--title_desktop) !important;
+  }
+}

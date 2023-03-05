@@ -25,9 +25,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/css/reset.css",
+              "src/assets/css/toastr.css"
             ],
-            "scripts": []
+            "scripts": []            
           },
           "configurations": {
             "production": {
