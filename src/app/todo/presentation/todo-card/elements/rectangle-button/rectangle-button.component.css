@@ -7,6 +7,14 @@
   border: none;
   text-transform: uppercase;
   text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.button__rectangle:hover {
+ font-weight: var(--font_medium);
+ 
+  
 }
 
 .secondary--color {
