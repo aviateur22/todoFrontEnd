@@ -93,7 +93,11 @@ export class TodoCardComponent {
   /**
    * Vérification si ajout ou update d'une Todo
    */
-  addEditTodo() {  
+  addEditTodo() {
+    if (!this.todoFormGroup.valid) {
+      return this.todoFormGroup.markAllAsTouched();
+    }
+
     switch(this.isTodoToUpdate) {
       // update Todo
       case true: 
@@ -119,8 +123,7 @@ export class TodoCardComponent {
    * Mise a jour d'une Todo
    * @param {UpdateTodoSchema} todo 
    */
-  updateTodo(todo: UpdateTodoSchema) {
-    console.log(todo)
+  updateTodo(todo: UpdateTodoSchema) {   
     UseCaseServiceImp.getUseCasesServiceImp().updateOneTodoUseCase.execute(todo).subscribe({
 
       // Success mise à jour
@@ -142,9 +145,10 @@ export class TodoCardComponent {
    */
   saveTodo(todo: AddTodoSchema) {
     UseCaseServiceImp.getUseCasesServiceImp().addTodoUseCase.execute(todo).subscribe({
-
+      
       // Succes
       next: result =>{
+        console.log(result);
         RouterServiceImp.getRouter().navigate('/todos');
         this.toastr.success('todo is added');
       },

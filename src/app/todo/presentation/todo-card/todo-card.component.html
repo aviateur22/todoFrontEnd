@@ -1,6 +1,7 @@
 <div class="form__container">
   <form class="form" [formGroup]="todoFormGroup" (submit)="addEditTodo()">
     <div class="form__input__container">
+
       <!-- Titre -->
       <app-input 
       class="form__input__group"
@@ -11,6 +12,7 @@
       name="title" 
       placeholderText="Mon super titre" 
       labelText="titre"
+      errorMessage="Le titre est obligatoire"
       ></app-input>
 
       <!-- Description -->

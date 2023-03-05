@@ -1,9 +1,9 @@
-<div class="todo" (click)="showTodoContent()">
+<div [ngClass]="{'todo--complete': todoStatusHtml}" class="todo" (click)="showTodoContent($event)">
     <!-- checkbox -->
-    <input class="todo__checkbox" (click)="checkToggleTodo($event)" type="checkbox" [checked]="todoStatusHtml">
+    <input (click)="$event.stopPropagation()" (change)="checkToggleTodo($event)" class="todo__checkbox" [(ngModel)]="todoStatusHtml" type="checkbox" [checked]="todoStatusHtml">
 
     <!-- Titre -->
-    <p class="todo__title"> {{ todoTitleHtml }} </p>
+    <p [ngClass]="{ 'text--cross': todoStatusHtml }" class="todo__title"> {{ todoTitleHtml }} </p>
 
     <!-- button supp -->
     <app-rounded-button (clickEmitter)='deleteTodo()'></app-rounded-button>

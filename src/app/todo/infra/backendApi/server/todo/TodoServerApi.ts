@@ -69,7 +69,6 @@ export class TodoServerApi implements TodoApiSchema {
    * @param todo 
    */
   checkToggleTodo(todo: CheckToggleTodoSchema): Observable<TodoEntity> {
-    console.log(todo.status);
     return HttpServiceImp.getHttp().patch(this.uri + '/toggle-check/' + todo.id, todo);
   }
  

@@ -1,11 +1,17 @@
-<div class="input__group" [formGroup]="todoFormGroup" >
+<div class="input__group" [formGroup]="todoFormGroup">
   <label class="input__label" [for]="id"> {{ labelText }}</label>
   <input
-  class="input__text"
+    [class.border__error]="todoFormGroup.get(controlName)?.touched && todoFormGroup.get(controlName)?.errors?.['required']"
+    class="input__text"
     [formControlName]="controlName"
     [placeholder]="placeholderText" 
     [type]="type" 
     [name]="name" 
     [id]="id"
   >
+  <!-- Message d'erreur-->
+  <div *ngIf="todoFormGroup.get(controlName)?.touched && todoFormGroup.get(controlName)?.errors?.['required']">
+    <p class="input__error__text ">{{errorMessage}}</p>
+  </div>
+  
 </div>
