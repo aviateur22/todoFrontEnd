@@ -1,17 +1,19 @@
-<div>
-  <!-- modal suppression -->
-  <div *ngIf="isModalToShow">
-    <app-modal (deleteTodoEmitter)="deleteSelectedTodo()" (hideModalEmitter)="hideModalConfirmation()"></app-modal>
-  </div>  
-
-  <!-- Liste des todos -->
-  <ul>
-    <!-- Liste des todos -->
-    <li *ngFor="let todo of todos; let i=index">
-      <app-todo (deleteTodoEmitter)="showModalConfirmation($event)" [todo]="todo"></app-todo>  
-    </li>  
-  </ul>
+<div class="todos__container">
+  <div class="todos">
+    <!-- modal suppression -->
+    <div class="modal__container" *ngIf="isModalToShow">
+      <app-modal (deleteTodoEmitter)="deleteSelectedTodo()" (hideModalEmitter)="hideModalConfirmation()"></app-modal>
+    </div>  
   
-  <!-- Ajouter une Todo -->
-  <app-rectangle-button (click)="navigateToAddTodoUrl()" type="button" buttonText="ajouter une todo"></app-rectangle-button>
+    <!-- Liste des todos -->
+    <ul class="todos__items">
+      <!-- Liste des todos -->
+      <li class="todos__item" *ngFor="let todo of todos; let i=index">
+        <app-todo (deleteTodoEmitter)="showModalConfirmation($event)" [todo]="todo"></app-todo>  
+      </li>  
+    </ul>
+    
+    <!-- Ajouter une Todo -->
+    <app-rectangle-button class="todos__buton__container" (click)="navigateToAddTodoUrl()" type="button" buttonText="ajouter une todo"></app-rectangle-button>
+  </div>
 </div>

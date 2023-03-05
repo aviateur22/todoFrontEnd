@@ -35,9 +35,9 @@ export class AppComponent {
 
   ngOnInit() {
     this.setRouterService();    
-
     // Navigation vers les todos
     RouterServiceImp.getRouter().navigate('/todos');
+    
   } 
 
   /**

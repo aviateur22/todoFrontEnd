@@ -16,6 +16,7 @@ import { RectangleButtonComponent } from './todo/presentation/todo-card/elements
 import { TitlePageComponent } from './todo/presentation/todo-card/elements/title-page/title-page.component';
 import { RoundedButtonComponent } from './todo/presentation/todo/elements/rounded-button/rounded-button.component';
 import { ModalComponent } from './todo/presentation/todos/elements/modal/modal.component';
+import { BannerComponent } from './todo/presentation/todos/elements/banner/banner.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ModalComponent } from './todo/presentation/todos/elements/modal/modal.c
     RectangleButtonComponent,
     TitlePageComponent,
     RoundedButtonComponent,
-    ModalComponent
+    ModalComponent,
+    BannerComponent
   ],
   imports: [
     BrowserModule,

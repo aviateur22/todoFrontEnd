@@ -3,6 +3,7 @@ import { TodoEntity } from '../../domain/entities/todo/TodoEntity';
 import { CheckToggleTodoSchema } from '../../domain/ports/todoSchema/CheckToggleTodoSchema';
 import { UseCaseServiceImp } from '../../domain/services/UseCaseServiceImp';
 import { RouterServiceImp } from '../../infra/services/RouterServiceImp';
+import { BannerService } from '../services/banner.service';
 
 @Component({
   selector: 'app-todo',
@@ -21,11 +22,12 @@ export class TodoComponent {
   todoTitleHtml: string = '';
 
   // Status
-  todoStatusHtml: boolean = false;
+  todoStatusHtml!: boolean;
 
-  constructor() {}
+  constructor(private bannerService: BannerService) {}
   
   ngOnInit() {
+    //console.log(this.todo.status)
    // Titre de la Todo
    this.todoTitleHtml = this.todo.title;
 
@@ -36,24 +38,28 @@ export class TodoComponent {
   /**
    * Affichage detail d'une Todo
    */
-  showTodoContent() {
+  showTodoContent(event: any) {
+    event.stopPropagation();
+    // Modification du text de la banner
+    this.bannerService.changeBannerText('modifier un item');
+
     RouterServiceImp.getRouter().navigate('./update-todo/' + this.todo.id);
   }
 
   /**
    * Modification du status de la Todo
    */
-  checkToggleTodo(event: Event) {
-    event.stopPropagation();
-    
+  checkToggleTodo(event: any) {
+    event.stopPropagation();   
+
     // Todo a mettre a jour
     const checkToggleTodo: CheckToggleTodoSchema = {
       id: this.todo.id,
-      status: !this.todo.status
+      status: this.todoStatusHtml
     }
 
     // Mise a jour de la Todo
-    UseCaseServiceImp.getUseCasesServiceImp().checkToggleTodoUseCase.execute(checkToggleTodo).subscribe();
+    UseCaseServiceImp.getUseCasesServiceImp().checkToggleTodoUseCase.execute(checkToggleTodo).subscribe();    
   }
 
   /**

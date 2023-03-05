@@ -25,7 +25,11 @@ export class InputComponent {
   //formbuilder au complet
   @Input() todoFormGroup: FormGroup = new FormGroup({});
 
+  // Nom du control
   @Input() controlName: string = ''
+
+  // Message à afficher en cas d'erreur
+  @Input() errorMessage: string = ''
 
   ngOnInit() {
     

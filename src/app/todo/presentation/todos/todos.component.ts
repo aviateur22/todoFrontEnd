@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { TodoEntity } from '../../domain/entities/todo/TodoEntity';
 import { DeleteOneTodoSchema } from '../../domain/ports/todoSchema/DeleteOneTodoSchema';
 import { UseCaseServiceImp } from '../../domain/services/UseCaseServiceImp';
+import { BannerService } from '../services/banner.service';
 
 @Component({
   selector: 'app-todos',
@@ -21,9 +22,17 @@ export class TodosComponent {
   // Todo a supprimer
   deleteTodo!: DeleteOneTodoSchema;
 
-  constructor(private router: Router, private toastr: ToastrService) { }
+  constructor(
+    private bannerService: BannerService,
+    private router: Router, 
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit() {
+    // Modification du text de la banner
+    this.bannerService.setInitialBannerText();
+
+    // Recherche des Todos
     this.findAllTodos();
    } 
 
@@ -46,6 +55,9 @@ export class TodosComponent {
    * Redirection vers l'ajout d'une Todo
    */
   navigateToAddTodoUrl(){
+    // Modification du text de la banner
+    this.bannerService.changeBannerText('ajouter un item')
+    
     this.router.navigate(['./add-todo']);
   }
 

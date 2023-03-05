@@ -1,5 +1,54 @@
 .todo {
-  display: flex;
- 
+  padding: 5px;
+  display: flex; 
   align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.todo__title {
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 100%;
+  text-transform: uppercase;
+  text-align: left;
+  font-weight: var(--font_medium);
+  overflow: hidden;
+}
+
+.text--cross {
+  text-decoration-line: line-through;
+}
+
+.todo--complete {
+  background-color: rgba(0,0,0,0.3);
+}
+
+@media screen and (min-width: 768px) {
+  .todo {
+    height: 70px;
+    padding: 10px;
+  }
+
+  .todo__checkbox {
+    height: 40px;
+    width: 40px;
+  }
+
+  .todo__title {
+    font-size: var(--text_tablet) !important;
+    padding-left: 10px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .todo {
+    height: 80px;
+  }
+
+  .todo__title {
+    font-size: var(--text_desktop) !important;
+  }
 }
