@@ -23,8 +23,10 @@
   flex-direction: column;
   width: 100%;  
   align-items: center;
+  justify-content: center;
+  max-width: 550px;
+  height: 100%;
 }
-
 
 .form__input__group {
   width: 100%;
@@ -42,4 +44,12 @@
   display: flex;
   justify-content: center;
   width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  
+  .button__container {   
+    padding-bottom: 20px;
+  }
+  
 }
