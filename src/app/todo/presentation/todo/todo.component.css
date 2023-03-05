@@ -6,6 +6,12 @@
   height: 50px;
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.todo:hover {
+  background-color: #dbf3ff;
 }
 
 .todo__title {

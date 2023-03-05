@@ -1,3 +1,4 @@
+import { transition, style, animate, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -6,10 +7,32 @@ import { DeleteOneTodoSchema } from '../../domain/ports/todoSchema/DeleteOneTodo
 import { UseCaseServiceImp } from '../../domain/services/UseCaseServiceImp';
 import { BannerService } from '../services/banner.service';
 
+const enterTransition = transition(':enter', [
+  style({
+    opacity: 0
+  }),
+  animate('0.5s ease-in', style({
+    opacity: 1
+  }))
+]);
+
+const exitTransition = transition(':leave', [
+  style({
+    opacity: 1
+  }),
+  animate('0.5s ease-out', style({
+    opacity: 0
+  }))
+]);
+
+const fadeIn = trigger('fadeIn', [enterTransition]);
+const fadeOut = trigger('fadeOut', [exitTransition]);
+
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
-  styleUrls: ['./todos.component.css']
+  styleUrls: ['./todos.component.css'],
+  animations: [fadeIn, fadeOut]
 })
 export class TodosComponent {
 

@@ -24,7 +24,7 @@ const httpClient = new HttpClient(new HttpXhrBackend({
 }));
 
 // Environemnt
-const environmentSelection: number = EnvironmentSource.devWebServer;
+const environmentSelection: number = EnvironmentSource.devLocalServer;
 
 const environmentServiceImp = new EnvironmentServiceImp(new EnvironmentSourceSelection());
 environmentServiceImp.setEnvironment(environmentSelection);
