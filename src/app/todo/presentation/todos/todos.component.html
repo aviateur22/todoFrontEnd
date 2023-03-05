@@ -1,10 +1,15 @@
 <div class="todos__container">
   <div class="todos">
-    <!-- modal suppression -->
+     <!-- modal suppression -->
     <div class="modal__container" *ngIf="isModalToShow" @fadeIn @fadeOut>
       <app-modal (deleteTodoEmitter)="deleteSelectedTodo()" (hideModalEmitter)="hideModalConfirmation()"></app-modal>
-    </div>  
-  
+    </div>
+    
+    <!-- text pas de todos -->
+    <div class="todos__empty__container" *ngIf="todos.length === 0" @fadeIn @fadeOut>
+      <p class="todos__empty__text">pas de todos</p>
+    </div>
+
     <!-- Liste des todos -->
     <ul class="todos__items">
       <!-- Liste des todos -->

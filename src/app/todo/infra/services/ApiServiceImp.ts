@@ -26,7 +26,7 @@ export class ApiServiceImp {
     if(typeof ApiServiceImp.backendApi === 'undefined') {
       throw new BackendApiServiceException('No backend service Selected');
     }
-    console.log(ApiServiceImp.backendApi);
+    
     return ApiServiceImp.backendApi;
   }
 }

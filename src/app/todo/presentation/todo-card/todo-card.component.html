@@ -1,7 +1,8 @@
 <div class="form__container">
   <form class="form" [formGroup]="todoFormGroup" (submit)="addEditTodo()">
-    <div class="form__input__container">
 
+    <!--Container inputs-->
+    <div class="form__input__container">
       <!-- Titre -->
       <app-input 
       class="form__input__group"
@@ -28,7 +29,7 @@
       ></app-input>
     </div>    
   
-    <!-- container -->
+    <!-- container button -->
     <div class="button__container">
        <!-- Submit button-->
       <app-rectangle-button 
