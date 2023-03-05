@@ -9,4 +9,3 @@ Node 16.17
 
 ## Project release on github
 https://aviateur22.github.io/todoFrontEnd/todos
-
