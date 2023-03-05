@@ -27,7 +27,6 @@ export class TodoComponent {
   constructor(private bannerService: BannerService) {}
   
   ngOnInit() {
-    //console.log(this.todo.status)
    // Titre de la Todo
    this.todoTitleHtml = this.todo.title;
 

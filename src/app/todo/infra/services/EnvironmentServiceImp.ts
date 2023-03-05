@@ -27,8 +27,7 @@ export class EnvironmentServiceImp {
   static getEnvironment(): EnvironmentSchema {
     if(typeof EnvironmentServiceImp.environment === 'undefined') {
       throw new EnvironmentServiceException('no environment service selected');
-    }
-    console.log(EnvironmentServiceImp.environment);
+    }  
     return EnvironmentServiceImp.environment;
   }
 }

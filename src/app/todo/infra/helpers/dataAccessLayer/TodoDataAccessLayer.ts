@@ -47,7 +47,6 @@ export class TodoDataAccessLayer {
    * @param {AddTodoSchema} todo 
    */
   addTodo(todo: AddTodoSchema, findAllTodos: EventEmitter<any>) {  
-    console.log(todo);  
     UseCaseServiceImp.getUseCasesServiceImp().addTodoUseCase.execute(todo).subscribe(t=>findAllTodos.emit());
   }
 
